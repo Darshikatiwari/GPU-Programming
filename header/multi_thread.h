@@ -7,7 +7,7 @@ using namespace std;
 #define TIME_NOW std::chrono::high_resolution_clock::now()
 #define TIME_DIFF(gran, start, end) std::chrono::duration_cast<gran>(end - start).count()
 
-#define THREADS 8
+#define THREADS 32
 pthread_mutex_t alock;
 pthread_mutex_t block;
 int step =0;
