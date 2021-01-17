@@ -39,16 +39,18 @@ void singleThread(int N, int *matA, int *matB, int *output)
     begin = TIME_NOW;
 
     //DMM on the transposed matrix
-    for(int i=0;i<N;i++){
-        for(int j=0;j<N;j++){
+    for(int i=0;i<N;i++)
+    {
+        for(int j=0;j<N;j++)
+        {
             output[i+j]+=matA[i*N+j]*matB[(N-i-1)*N+j];
         }
     }
     
     end = TIME_NOW;
     //Overall program time calculation
-    transposetime=(double)TIME_DIFF(std::chrono::microseconds, begin, end) / 1000.0;
-    cout << "\nTime for executing singleThread: " << transposetime;    
+    t_time=(double)TIME_DIFF(std::chrono::microseconds, begin, end) / 1000.0;
+    cout << "\nTime for executing singleThread: " << t_time;    
 
     
 }
