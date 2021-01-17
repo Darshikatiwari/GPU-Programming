@@ -133,11 +133,7 @@ void multiThread(int N, int *matA, int *matB, int *output)
     {
         printf("Thread Creation was Unsuccessfull");
     }
-
-    //Time display
-    cout << "Total runtime of threads: " << (double)TIME_DIFF(std::chrono::microseconds, begin, end) / 1000.0 ; 
     
-
     //thread synchronization
     int i=0;
     while(i < THREAD_COUNT)
@@ -146,6 +142,10 @@ void multiThread(int N, int *matA, int *matB, int *output)
          i++;       
     }
     
+    //Time display
+    cout << "Total runtime of threads: " << (double)TIME_DIFF(std::chrono::microseconds, begin, end) / 1000.0 ; 
+    
+
 
 }
 
