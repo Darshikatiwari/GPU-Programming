@@ -15,7 +15,7 @@ void B_transpose(int *dst, const int *src, int n) noexcept
         {
             for(k = 0; k < block && i + k < n; ++k) 
             {
-                dst[j*n + i + k] = src[(i + k)*n + j]; //assignment of the transposed values
+                dst[j*n + k + i] = src[(i + k)*n + j]; //assignment of the transposed values
             }
         }
     }
@@ -25,8 +25,6 @@ void B_transpose(int *dst, const int *src, int n) noexcept
 // single threaded function
 void singleThread(int N, int *matA, int *matB, int *output)
 {
-    //Time Synchronization
-    auto begin = TIME_NOW;
 
     //pointer to store transposed matrix
     int *dst = new int[N * N];
@@ -36,13 +34,8 @@ void singleThread(int N, int *matA, int *matB, int *output)
 
     //transposed matrix B
     matB=dst;
-    
-    auto end = TIME_NOW;
-
-    //Total Time taken by the loop to compute transpose
-    auto transposetime=(double)TIME_DIFF(std::chrono::microseconds, begin, end) / 1000.0;
-    cout << "\nTime for calculating Transpose: " << transposetime ;    
-    
+     
+    //time calculation
     begin = TIME_NOW;
 
     //DMM on the transposed matrix
@@ -53,9 +46,9 @@ void singleThread(int N, int *matA, int *matB, int *output)
     }
     
     end = TIME_NOW;
-    //Overall loop time calculation
+    //Overall program time calculation
     transposetime=(double)TIME_DIFF(std::chrono::microseconds, begin, end) / 1000.0;
-    cout << "\nTime for executing Loop: " << transposetime;    
+    cout << "\nTime for executing singleThread: " << transposetime;    
 
     
 }
