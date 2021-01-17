@@ -3,6 +3,10 @@
 #include <fstream>
 using namespace std;
 
+//Macros for time calculation
+#define TIME_DIFF(val, start, stop) std::chrono::duration_cast<val>(stop - start).count()
+#define TIME_NOW std::chrono::high_resolution_clock::now()
+
 //transpose of matrix B
 void B_transpose(int *dst, const int *src, int n) noexcept 
 {
