@@ -27,7 +27,7 @@ struct thd1 {
     };
 
 //function executed for DMM
-void* st(void * thread_arg)
+void* mult_threads(void * thread_arg)
 {
     //casting from void to struct
     struct thd1 *global = (struct thd1 *) thread_arg;
@@ -35,17 +35,17 @@ void* st(void * thread_arg)
     //synchronization by locks
     pthread_mutex_lock(&lock_a);
 
-    int core = step;      //assignment of cores
-        step += 1;
+    int core = step;      //assignment of cores  
     int start1 =(core*global->N)/THREAD_COUNT;  //range covered by each thread
     int finish1 =((core+1)*global->N)/THREAD_COUNT;  
+    step += 1;
 
     pthread_mutex_unlock(&lock_b);
 
     //auto begin = TIME_NOW;                                                      (used during profiling of every loop)
 
     // Iterate over first half of output elements
-    for(int i = start; i < finish; ++i) {
+    for(int i = start1; i < finish1; ++i) {
         int temp = 0;
         // Iterate over diagonal elements
         for(int j = 0; j < i + 1; ++j) {
@@ -69,13 +69,13 @@ void* st(void * thread_arg)
     pthread_mutex_lock(&lock_a);
 
     int core1 =step1;
-    step1=step1+1;
     int start2 =(core1*global->N)/THREAD_COUNT + global->N;
     int finish2=((core1+1)*global->N )/THREAD_COUNT + global->N;
+    step1=step1+1;
     
      if (core1== THREAD_COUNT-1)
     {
-        finish = finish2-1;
+        finish2 = finish2-1;
     }  
     pthread_mutex_unlock(&lock_b);
    
@@ -83,6 +83,7 @@ void* st(void * thread_arg)
     for(int i = start2; i < finish2; ++i) {
         int temp = 0;
         // Iterate over diagonal elements
+        //need to specify N as global
         for(int j = 0; j < 2 * global->N - (i + 1); ++j) {
             int rowA = i + 1 + j - global->N;
             int colA = global->N - j - 1;
@@ -122,7 +123,7 @@ void multiThread(int N, int *matA, int *matB, int *output)
     thread[i].output=output;   
 
     //thread creation
-    Exception_check = pthread_create(&tid[i], NULL,st, (void *)&thread[i]);
+    Exception_check = pthread_create(&tid[i], NULL,mult_threads, (void *)&thread[i]);
         
     }
     auto end = TIME_NOW;
