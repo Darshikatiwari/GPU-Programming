@@ -44,8 +44,8 @@ void gpuThread(int N, int *matA, int *matB, int *output)
      cudaMemcpy(dB, matB, N*N*sizeof(int), cudaMemcpyHostToDevice) ;
       cudaMemcpy(dO, output, N*N*sizeof(int), cudaMemcpyHostToDevice) ;
     DMM<<<blocks , threads>>>(N , dA,dB ,dO);
-    cudaMemcpy(matA, dA, N*N*sizeof(int), cudaMemcpyDeviceToHost); 
-     cudaMemcpy(matB, dB, N*N*sizeof(int), cudaMemcpyDeviceToHost); 
+    //cudaMemcpy(matA, dA, N*N*sizeof(int), cudaMemcpyDeviceToHost); 
+    // cudaMemcpy(matB, dB, N*N*sizeof(int), cudaMemcpyDeviceToHost); 
       cudaMemcpy(output, dO, N*N*sizeof(int), cudaMemcpyDeviceToHost); 
      for(int i = 0; i < 256; ++i)
         {
