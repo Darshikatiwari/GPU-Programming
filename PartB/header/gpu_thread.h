@@ -54,7 +54,7 @@ void gpuThread(int N, int *matA, int *matB, int *output)
     
     cudaMemcpy(GmatA, matA, bytes, cudaMemcpyHostToDevice) ;   //data assignment
     cudaMemcpy(GmatB, matB, bytes, cudaMemcpyHostToDevice) ;
-    cudaMemcpy(GmatO, output, bytes, cudaMemcpyHostToDevice) ;
+    cudaMemcpy(GmatO, output,((2*N-1)*sizeof(int)), cudaMemcpyHostToDevice) ;
 
 
     int threadsPerBlock = COUNT;
@@ -82,7 +82,7 @@ void gpuThread(int N, int *matA, int *matB, int *output)
         
     cudaDeviceSynchronize();
     
-    cudaFree(GmatA);
-    cudaFree(GmatB);
-    cudaFree(GmatO);
+    //cudaFree(GmatA);
+    //cudaFree(GmatB);
+    //cudaFree(GmatO);
 }
