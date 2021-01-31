@@ -15,6 +15,7 @@ if(i < N)
 {
    
     int temp = 0;
+	#pragma unroll
     for(int j = 0; j < i + 1; ++j)
      {
 	    int rowA = j;
@@ -30,6 +31,7 @@ if(i >= N && i < 2*N-1) //to prevent extra threads from executing
 {
     int temp = 0;
         // Iterate over diagonal elements
+	#pragma unroll
     for(int j = 0; j < 2 * N - (i + 1); ++j)
     {
             int rowA = i + 1 + j - N;
