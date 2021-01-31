@@ -58,7 +58,7 @@ void gpuThread(int N, int *matA, int *matB, int *output)
 
 
     int threadsPerBlock = COUNT;
-    int blocksPerGrid = 2*N +threads-1/threads;
+    int blocksPerGrid = (2*N) /threadsPerBlock;   //padding not required here
     
     
     dim3 blocks;
@@ -74,7 +74,7 @@ void gpuThread(int N, int *matA, int *matB, int *output)
     
     cudaMemcpy(output, GmatO, bytes, cudaMemcpyDeviceToHost); 
      
-    for(int i = 0; i < n; ++i)
+    for(int i = 0; i < N; ++i)
         {
             cout << "GPU output: at : " <<i<<" : "<< output[i] << "\n";
             
