@@ -74,9 +74,9 @@ void gpuThread(int N, int *matA, int *matB, int *output)
     
     cudaMemcpy(output, GmatO, bytes, cudaMemcpyDeviceToHost); 
      
-    for(int i = 0; i < N; ++i)
+    for(int i = 0; i < 2*N-1; ++i)
         {
-            cout << "GPU output: at : " <<i<<" : "<< output[i] << "\n";
+            cout << "GPU actual: at : " <<i<<" : "<< output[i] << "\n";
             
         }
         
