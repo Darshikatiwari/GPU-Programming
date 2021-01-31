@@ -1,5 +1,5 @@
 
-#define COUNT 32 //no. of threads in each block
+#define COUNT 48 //no. of threads in each block
 
 __global__ 
 void DMM(int N, int *matA, int *matB, int *output)
