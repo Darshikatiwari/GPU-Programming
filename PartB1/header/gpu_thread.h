@@ -1,5 +1,4 @@
-#include <iostream.h>
-#include <math>
+
 #define COUNT 16 //no. of threads in each block
 
 __global__ 
@@ -50,6 +49,7 @@ void gpuThread(int N, int *matA, int *matB, int *output)
 {
     int *GmatA,*GmatB,*GmatO;
     int bytes = N * N * sizeof(int);
+	out_bytes=(2*n-1)* sizeof(int)
     
     cudaMalloc((void**)&GmatA, bytes) ;  //memory creation in device
     cudaMalloc((void**)&GmatB, bytes) ;
@@ -57,7 +57,7 @@ void gpuThread(int N, int *matA, int *matB, int *output)
     
     cudaMemcpy(GmatA, matA, bytes, cudaMemcpyHostToDevice) ;   //data assignment
     cudaMemcpy(GmatB, matB, bytes, cudaMemcpyHostToDevice) ;
-    cudaMemcpy(GmatO, output, bytes, cudaMemcpyHostToDevice) ;
+    cudaMemcpy(GmatO, output,out_bytes, cudaMemcpyHostToDevice) ;
 
 
     int threadsPerBlock = COUNT;
@@ -75,7 +75,7 @@ void gpuThread(int N, int *matA, int *matB, int *output)
     
     DMM<<< blocks,threads >>>(N,GmatA,GmatB,GmatO);
     
-    cudaMemcpy(output, GmatO, bytes, cudaMemcpyDeviceToHost); 
+    cudaMemcpy(output, GmatO, out_bytes, cudaMemcpyDeviceToHost); 
      
     for(int i = 0; i < n; ++i)
         {
@@ -85,7 +85,7 @@ void gpuThread(int N, int *matA, int *matB, int *output)
         
     cudaDeviceSynchronize();
     
-    cudaFree(GmatA);
-    cudaFree(GmatB);
-    cudaFree(GmatO);
+    //cudaFree(GmatA);
+    //cu//daFree(GmatB);
+    //cudaFree(GmatO);
 }
