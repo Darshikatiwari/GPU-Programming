@@ -1,5 +1,5 @@
 
-#define COUNT 16 //no. of threads in each block
+#define COUNT 32 //no. of threads in each block
 
 __global__ 
 void DMM(int N, int *matA, int *matB, int *output)
@@ -72,7 +72,7 @@ void gpuThread(int N, int *matA, int *matB, int *output)
     
     DMM<<< blocks,threads >>>(N,GmatA,GmatB,GmatO);
     
-    cudaMemcpy(output, GmatO, bytes, cudaMemcpyDeviceToHost); 
+    cudaMemcpy(output, GmatO, ((2*N-1)*sizeof(int)), cudaMemcpyDeviceToHost); 
      
     for(int i = 0; i < 2*N-1; ++i)
         {
