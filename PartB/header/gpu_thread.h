@@ -1,5 +1,4 @@
-#include <iostream.h>
-#include <math>
+
 #define COUNT 16 //no. of threads in each block
 
 __global__ 
